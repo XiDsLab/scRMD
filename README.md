@@ -8,7 +8,5 @@ expression profile of genes is low rank and the dropout events are rare compared
 # Installation
 scRMD can be installed by simplely run:
 >install.packages("devtools")
-
 >library(devtools)
-
 >install_github("ChongC1990/scRMD")
