@@ -1,0 +1,11 @@
+Package: scRMD
+Type: Package
+Title: Imputation for single cell RNA-seq data
+Version: 1.0
+Date: 2017-09-14
+Author: Chong Chen & Changjing Wu
+Maintainer: Chong Chen <yourfault@somewhere.net>
+Description: This is a R package for imputation for single cell RNA-seq data via restricted
+robust matrix decomposition.
+Depends: R (>= 3.2.3)
+License: What license is it under?
