@@ -1,1 +1,4 @@
 exportPattern("^[[:alpha:]]+")
+
+import(corpcor)
+import(RSpectra)
