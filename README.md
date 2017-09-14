@@ -24,5 +24,5 @@ sData = sSimulator(K, Kn, Ndiff, Nsame, logMean, logSd, ZeroRate, drbase, dr, si
 res.rmd <- rmd(sData$de)
 pca.rmd <- prcomp(res.rmd$exprs)
 cl.rmd <- kmeans(pca.rmd$x[,1:2],K,nstart = 100)
-ARI(sData$label, cl.rmd$cluster)
+CalculateARI(sData$label, cl.rmd$cluster)
 ```
