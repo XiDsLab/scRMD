@@ -1,9 +1,6 @@
-# install.packages("corpcor")
-# install.packages("RSpectra")
-# install.packages("expm")
-# library(corpcor)
-# library(RSpectra)
-# library(expm)
+#' @import RSpectra
+#' @import corpcor
+
 
 svt <- function(A, thresh, econ = 0) {
   # econ is a flag that determines whether to use fast.svd in the "corpcor" package
