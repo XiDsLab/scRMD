@@ -1,7 +1,7 @@
 \name{rmd}
 \alias{rmd}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{
+\title{Roubst matrix decomposition
 %%  ~~function to do ... ~~
 }
 \description{

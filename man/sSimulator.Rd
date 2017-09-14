@@ -1,7 +1,7 @@
 \name{sSimulator}
 \alias{sSimulator}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{
+\title{Simulate scRNA data
 %%  ~~function to do ... ~~
 }
 \description{

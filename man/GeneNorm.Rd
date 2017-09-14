@@ -1,7 +1,7 @@
 \name{GeneNorm}
 \alias{GeneNorm}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{
+\title{Normalization of scRNA data
 %%  ~~function to do ... ~~
 }
 \description{

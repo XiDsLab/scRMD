@@ -1,7 +1,7 @@
 \name{MatrixFusion}
 \alias{MatrixFusion}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{
+\title{Fusion of two community label
 %%  ~~function to do ... ~~
 }
 \description{
