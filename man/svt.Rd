@@ -1,7 +1,7 @@
 \name{svt}
 \alias{svt}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{ Singular value threshhold
+\title{ Singular value threshold
 %%  ~~function to do ... ~~
 }
 \description{

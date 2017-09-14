@@ -4,7 +4,7 @@
 \title{Roubst matrix decomposition
 %%  ~~function to do ... ~~
 }
-\description{
+\description{minimize 1/2||Y - (Z - S)||_F^2 + lambda*||L||_* + tau * ||S||_1, suject to Z = L, Z >= 0, P_Omega(S) = 0, P_{Omega^c}(S) >= 0.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
@@ -12,31 +12,31 @@ rmd(Y, tau = NULL, lambda = NULL, initL = NULL, initS = NULL, initLambda = NULL,
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{Y}{
+  \item{Y}{The observed single cell expression matrix
 %%     ~~Describe \code{Y} here~~
 }
-  \item{tau}{
+  \item{tau}{The penality on sparsity of dropout events
 %%     ~~Describe \code{tau} here~~
 }
-  \item{lambda}{
+  \item{lambda}{The penality on row rank structure of the true expression matrix
 %%     ~~Describe \code{lambda} here~~
 }
-  \item{initL}{
+  \item{initL}{The initial value of L
 %%     ~~Describe \code{initL} here~~
 }
-  \item{initS}{
+  \item{initS}{The initial value of S
 %%     ~~Describe \code{initS} here~~
 }
-  \item{initLambda}{
+  \item{initLambda}{The initial value of lambda
 %%     ~~Describe \code{initLambda} here~~
 }
-  \item{maxiter}{
+  \item{maxiter}{The maximum number of iteration
 %%     ~~Describe \code{maxiter} here~~
 }
-  \item{abstol}{
+  \item{abstol}{Absolute converage tolerance
 %%     ~~Describe \code{abstol} here~~
 }
-  \item{reltol}{
+  \item{reltol}{Relative converage tolerance
 %%     ~~Describe \code{reltol} here~~
 }
   \item{rho}{
