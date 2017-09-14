@@ -17,6 +17,7 @@ install_github("ChongC1990/scRMD")
 ## Quick start
 
 ``` r
+library(scRMD)
 set.seed(2017)
 K=3; Kn=50; Ndiff=100; Nsame=10000; logMean=1.8; logSd=0.5; 
 ZeroRate = 0.5; sigmahetero = 0.1; sigmahomo = 0.2; drbase = 1; dr = 0.2;
