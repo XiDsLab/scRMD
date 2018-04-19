@@ -1,3 +1,4 @@
+#' @export
 #' @import RSpectra
 #' @import corpcor
 
