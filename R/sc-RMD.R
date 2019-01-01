@@ -1,6 +1,3 @@
-#' @import RSpectra
-#' @import corpcor
-
 svt <- function(A, thresh, econ = 0) {
   # econ is a flag that determines whether to use fast.svd in the "corpcor" package
   # or to use svds in the "RSpectra" pacakge
