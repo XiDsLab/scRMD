@@ -1,12 +1,16 @@
 Package: scRMD
 Type: Package
-Title: Imputation for scRNA data
+Title: scRMD: Imputation for single cell RNA-seq data via robust matrix decomposition
 Version: 0.0.2
-Date: 2019-01-01
-Author: Chong Chen and Changjing Wu
-Maintainer: ChongChen <https://github.com/ChongC1990/scRMD>
-Description: More about what it does (maybe more than one line).
-License: GPL-2
+Date: 2018-08-15
+Author: Chong Chen, Changjing Wu
+Maintainer: Chong Chen <cheung1990@126.com>
+Description: some descripition
+Depends: R (>= 3.3.2), RSpectra, corpcor
+Imports: RSpectra, corpcor
+License: GPL
 Encoding: UTF-8
-Depends: R (>= 3.4.1), RSpectra, corpcor
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr
