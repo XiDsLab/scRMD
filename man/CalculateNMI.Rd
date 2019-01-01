@@ -1,7 +1,7 @@
 \name{CalculateNMI}
 \alias{CalculateNMI}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Calculate normalized mutual information
+\title{
 %%  ~~function to do ... ~~
 }
 \description{

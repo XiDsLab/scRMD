@@ -1,42 +1,42 @@
 \name{rmd}
 \alias{rmd}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Roubst matrix decomposition
+\title{
 %%  ~~function to do ... ~~
 }
-\description{minimize 1/2||Y - (Z - S)||_F^2 + lambda*||L||_* + tau * ||S||_1, suject to Z = L, Z >= 0, P_Omega(S) = 0, P_{Omega^c}(S) >= 0.
+\description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-rmd(Y, tau = NULL, lambda = NULL, initL = NULL, initS = NULL, initLambda = NULL, maxiter = 100, abstol = 0.001, reltol = 0.001, rho = 1, overrelax = 1.5)
+rmd(Y, tau = NULL, lambda = NULL, initL = NULL, initS = NULL, initLambda = NULL, maxiter = 100, abstol = 0.001, reltol = 0.001, rho = 1, overrelax = 1.5, candidate = 0.05, econ = 1)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{Y}{The observed single cell expression matrix
+  \item{Y}{
 %%     ~~Describe \code{Y} here~~
 }
-  \item{tau}{The penality on sparsity of dropout events
+  \item{tau}{
 %%     ~~Describe \code{tau} here~~
 }
-  \item{lambda}{The penality on row rank structure of the true expression matrix
+  \item{lambda}{
 %%     ~~Describe \code{lambda} here~~
 }
-  \item{initL}{The initial value of L
+  \item{initL}{
 %%     ~~Describe \code{initL} here~~
 }
-  \item{initS}{The initial value of S
+  \item{initS}{
 %%     ~~Describe \code{initS} here~~
 }
-  \item{initLambda}{The initial value of lambda
+  \item{initLambda}{
 %%     ~~Describe \code{initLambda} here~~
 }
-  \item{maxiter}{The maximum number of iteration
+  \item{maxiter}{
 %%     ~~Describe \code{maxiter} here~~
 }
-  \item{abstol}{Absolute converage tolerance
+  \item{abstol}{
 %%     ~~Describe \code{abstol} here~~
 }
-  \item{reltol}{Relative converage tolerance
+  \item{reltol}{
 %%     ~~Describe \code{reltol} here~~
 }
   \item{rho}{
@@ -44,6 +44,12 @@ rmd(Y, tau = NULL, lambda = NULL, initL = NULL, initS = NULL, initLambda = NULL,
 }
   \item{overrelax}{
 %%     ~~Describe \code{overrelax} here~~
+}
+  \item{candidate}{
+%%     ~~Describe \code{candidate} here~~
+}
+  \item{econ}{
+%%     ~~Describe \code{econ} here~~
 }
 }
 \details{
@@ -79,15 +85,14 @@ rmd(Y, tau = NULL, lambda = NULL, initL = NULL, initS = NULL, initLambda = NULL,
 ## The function is currently defined as
 function (Y, tau = NULL, lambda = NULL, initL = NULL, initS = NULL, 
     initLambda = NULL, maxiter = 100, abstol = 0.001, reltol = 0.001, 
-    rho = 1, overrelax = 1.5) 
+    rho = 1, overrelax = 1.5, candidate = 0.05, econ = 1) 
 {
     n <- dim(Y)[1]
     p <- dim(Y)[2]
-    Omega <- (Y != 0)
+    Omega <- (Y > candidate)
     if (is.null(lambda)) 
         lambda <- max(sqrt(n), sqrt(p)) * sd(Y[Omega])
     L.d <- svd(Y, 0, 0)$d
-    econ <- ifelse(min(L.d) < lambda, 1, 0)
     if (is.null(initL)) {
         initL <- svt(Y, lambda, econ)$A.svt
     }
@@ -148,7 +153,7 @@ function (Y, tau = NULL, lambda = NULL, initL = NULL, initS = NULL,
         }
     }
     exprs <- Y
-    exprs[!Omega] <- L[!Omega]
+    exprs[S > 0] <- L[S > 0]
     exprs[exprs < 0] <- 0
     return(list(L = L, S = S, r = r, Lambda = Lambda, exprs = exprs, 
         tau = tau, lambda = lambda, history = history))

@@ -1,7 +1,5 @@
-#' @export
 #' @import RSpectra
 #' @import corpcor
-
 
 svt <- function(A, thresh, econ = 0) {
   # econ is a flag that determines whether to use fast.svd in the "corpcor" package
@@ -25,18 +23,18 @@ svt <- function(A, thresh, econ = 0) {
 }
 
 rmd <- function(Y, tau = NULL, lambda = NULL, initL = NULL, initS = NULL, initLambda = NULL, maxiter = 100,
-                abstol = 1e-3, reltol = 1e-3, rho = 1, overrelax = 1.5) {
+                abstol = 1e-3, reltol = 1e-3, rho = 1, overrelax = 1.5, candidate = 0.05, econ = 1) {
   # minimize 1/2||Y - (Z - S)||_F^2 + lambda*||L||_* + tau * ||S||_1
   # suject to Z = L, Z >= 0, P_Omega(S) = 0, P_{Omega^c}(S) >= 0
   
   # initialization
   n <- dim(Y)[1] # n and p is exchangeble actually
   p <- dim(Y)[2]
-  Omega <- (Y != 0)
+  Omega <- (Y > candidate)
   if (is.null(lambda)) lambda <-  max(sqrt(n),sqrt(p))*sd(Y[Omega])
   # determine whether to use svds
   L.d <- svd(Y, 0, 0)$d
-  econ <- ifelse(min(L.d) < lambda, 1, 0)
+  #econ <- ifelse(min(L.d) < lambda, 1, 0)
   if (is.null(initL)) {
     initL <- svt(Y, lambda, econ)$A.svt
   }
@@ -97,10 +95,11 @@ rmd <- function(Y, tau = NULL, lambda = NULL, initL = NULL, initS = NULL, initLa
     }
   }
   exprs <- Y
-  exprs[!Omega] <- L[!Omega]
+  exprs[S>0] <- L[S>0]
   exprs[exprs<0] <- 0
   return(list(L=L, S=S, r=r, Lambda = Lambda, exprs = exprs, tau = tau, lambda = lambda, history = history))
 }
+
 
 GeneNorm <- function(Y, percent = 0.05) {
   # Y is the observed p by n raw counts, p is #gene, n is #cell

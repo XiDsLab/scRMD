@@ -1,7 +1,7 @@
 \name{CalculateARI}
 \alias{CalculateARI}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Calculate adjusted rand index
+\title{
 %%  ~~function to do ... ~~
 }
 \description{
