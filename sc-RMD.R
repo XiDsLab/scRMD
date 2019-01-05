@@ -5,7 +5,7 @@ library(corpcor)
 library(RSpectra)
 library(expm)
 
-svt <- function(A, thresh, econ = 0) {
+svt <- function(A, thresh,maxk=100, econ = 0) {
   # econ is a flag that determines whether to use fast.svd in the "corpcor" package
   # or to use svds in the "RSpectra" pacakge
   if (econ == 0){
@@ -13,7 +13,7 @@ svt <- function(A, thresh, econ = 0) {
     A.svt <- res$u %*% diag(pmax(res$d - thresh, 0)) %*% as.matrix(t(res$v))
   }
   else if (econ == 1) {
-    A.d <- svd(A, 0, 0)$d
+    A.d <- svd(A, maxk, maxk)$d
     k <- sum(A.d > thresh)
     res <- svds(A, k)
     if (k > 1) {
