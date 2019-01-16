@@ -22,10 +22,13 @@ rmd <- function(Y, tau = NULL, lambda = NULL, initL = NULL, initS = NULL, initLa
   # initialization
   n <- dim(Y)[1] # n and p is exchangeble actually
   p <- dim(Y)[2]
+  if (min(p, n) > 1000){
+    econ = 0
+  }
   Omega <- (Y > candidate)
-  if (is.null(lambda)) lambda <-  max(sqrt(n),sqrt(p))*sd(Y[Omega])
+  if (is.null(lambda)) lambda <-  max(sqrt(n),sqrt(p))
   # determine whether to use svds
-  L.d <- svd(Y, 0, 0)$d
+  #L.d <- svd(Y, 0, 0)$d
   #econ <- ifelse(min(L.d) < lambda, 1, 0)
   if (is.null(initL)) {
     initL <- svt(Y, lambda, econ)$A.svt
@@ -34,8 +37,8 @@ rmd <- function(Y, tau = NULL, lambda = NULL, initL = NULL, initS = NULL, initLa
     initS <- matrix(0, n, p)
     initS[!Omega] <- initL[!Omega]
   }
-  #lambda <- lambda*sd(Y[Omega] - initL[Omega])
-  if (is.null(tau)) tau <- sd(Y[Omega])
+  lambda <- lambda*sd(Y[Omega] - initL[Omega])
+  if (is.null(tau)) tau <- sd(Y[Omega] - initL[Omega])
   if (is.null(initLambda)) {
     initLambda <- matrix(0, n, p)
   }
