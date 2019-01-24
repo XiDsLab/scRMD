@@ -26,9 +26,11 @@ rmd <- function(Y, tau = NULL, lambda = NULL, initL = NULL, initS = NULL, initLa
     econ = 0
   }
   Omega <- (Y > candidate)
-  if (is.null(lambda)) lambda <-  max(sqrt(n),sqrt(p))
+  if (is.null(lambda)) {
+    lambda <-  (sqrt(n) + sqrt(p)) * sd(Y)
+  }
   # determine whether to use svds
-  #L.d <- svd(Y, 0, 0)$d
+  # L.d <- svd(Y, 0, 0)$d
   #econ <- ifelse(min(L.d) < lambda, 1, 0)
   if (is.null(initL)) {
     initL <- svt(Y, lambda, econ)$A.svt
@@ -37,8 +39,10 @@ rmd <- function(Y, tau = NULL, lambda = NULL, initL = NULL, initS = NULL, initLa
     initS <- matrix(0, n, p)
     initS[!Omega] <- initL[!Omega]
   }
-  lambda <- lambda*sd(Y[Omega] - initL[Omega])
-  if (is.null(tau)) tau <- sd(Y[Omega] - initL[Omega])
+  #lambda <- lambda*sd(Y - initL)
+  if (is.null(tau)) {
+    tau <- sd(Y[Omega] - initL[Omega])
+  }
   if (is.null(initLambda)) {
     initLambda <- matrix(0, n, p)
   }
@@ -47,6 +51,7 @@ rmd <- function(Y, tau = NULL, lambda = NULL, initL = NULL, initS = NULL, initLa
   # solve
   history <- list(rho = c(), s_norm = c(), r_norm = c(), tol_pri = c(), tol_dual = c())
   for (k in 1:maxiter) {
+  print(k)
     # update Z,S
     # on Omega
     S[Omega] <- 0 
@@ -68,6 +73,7 @@ rmd <- function(Y, tau = NULL, lambda = NULL, initL = NULL, initS = NULL, initLa
     tmp <- Z_hat + Lambda / rho;
     svts <- svt(tmp, lambda / rho, econ)
     L <- svts$A.svt
+    L[L<0] = 0
     r <- svts$r
     
     # update Lambda
