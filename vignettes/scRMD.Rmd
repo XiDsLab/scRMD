@@ -1,0 +1,78 @@
+---
+title: "Introduction to scRMD"
+author: "Chong Chen, Changjing Wu"
+# author:
+# - name: Chong Chen, Changjing Wu
+#   affiliation: 
+#   - School of Mathematical Sciences, Peking University
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+#output: pdf_document
+vignette: >
+  %\VignetteIndexEntry{scRMD: Imputation for single cell RNA-seq data via robust matrix decomposition}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Introduction
+The emerging single cell RNA sequencing (scRNA-seq) technologies enable the investigation of transcriptomic landscape at single-cell resolution. However, scRNA-seq analysis is complicated by the excess of zero or near zero counts in the data, which are the so-called dropouts due to low amounts of mRNA within each individual cell. Consequently, downstream analysis of scRNA-seq woule be severely biased if the dropout events are not properly corrected. `scRMD` scRMD is developed to impute single cell RNA data with dropouts. scRMD assumes the the underlying
+expression profile of genes is low rank and the dropout events are rare compared with true zero expression.
+
+`scRMD` can be applied to raw data count before the users perform downstream analyses such as
+
+- dimension reduction of scRNA-seq data
+- normalization of scRNA-seq data
+- clustering of cell populations
+- differential gene expression analysis
+- time-series analysis of gene expression dynamics
+
+## Installation
+scRMD can be installed by simplely run:
+
+``` r
+install.packages("devtools")         
+library(devtools)           
+install_github("ChongC1990/scRMD")
+```
+or
+``` r
+install.packages("scRMD")
+```
+
+## Quick start
+
+`scRMD` can be easily incorporated into existing pipeline of scRNA-seq analysis.
+Its only input is the raw expression matrix with rows representing genes and columns representing cells. It will output an imputed count matrix with the same dimension.
+In the simplest case, the imputation task can be done with one single function `rmd`:
+```{r eval = FALSE}
+rmd(Y, # The raw expression matrix
+    tau = NULL, # Tuning parameter to penalize the sparsity of S
+	lambda = NULL, # Tuning parameter to penalize the row rank of L
+	initL = NULL, # The initionlization of L
+	initS = NULL, # The initionlization of S
+	initLambda = NULL, # The initionlization of Lambda
+	maxiter = 100, # Maxmium iteration
+	abstol = 0.001, # Convergence metrics
+	reltol = 0.001, # Convergence metrics
+	rho = 1, 
+	overrelax = 1.5, 
+	candidate = 0.05, # The cutoff to define candidate dropouts
+	econ = 1 # If econ = 0, fast svd decomposition will be used
+	)
+```
+
+```
+library(scRMD)
+set.seed(2017)
+K=3; Kn=50; Ndiff=100; Nsame=10000; logMean=1.8; logSd=0.5; 
+ZeroRate = 0.5; sigmahetero = 0.1; sigmahomo = 0.2; drbase = 1; dr = 0.2;
+sData = sSimulator(K, Kn, Ndiff, Nsame, logMean, logSd, ZeroRate, drbase, dr, sigmahomo, sigmahetero, type = "cluster")
+cutoff = quantile(sDate$de[sDate$de>0], 0.05)
+res.rmd <- rmd(sData$de, candidate = cutoff)
+pca.rmd <- prcomp(res.rmd$exprs)
+cl.rmd <- kmeans(pca.rmd$x[,1:2],K,nstart = 100)
+CalculateARI(sData$label, cl.rmd$cluster)
+```
+
+
+

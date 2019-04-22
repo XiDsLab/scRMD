@@ -1,16 +1,24 @@
 Package: scRMD
 Type: Package
 Title: scRMD: Imputation for single cell RNA-seq data via robust matrix decomposition
-Version: 0.0.2
-Date: 2018-08-15
-Author: Chong Chen, Changjing Wu
+Version: 0.99.0
+Date: 2019-04-22
+Authors@R: c(
+    person("Chong", "Chen", , "cheung1990@126.com", c("aut", "cre")),
+    person("Changjing", "Wu", , c("aut", "cre")),
+	person("Linjie", "Wu", , role = "aut"),
+	person("Yishu", "Wang", , role = "aut"),
+	person("Minghua", "Deng", , role = "aut"),
+	person("Ruibin", "Xi", , role = "aut")
+    )
 Maintainer: Chong Chen <cheung1990@126.com>
-Description: some descripition
-Depends: R (>= 3.3.2), RSpectra, corpcor
+Description: A R package for imputation of single cell RNA-seq data
+Depends: R (>= 3.3.2), RSpectra, corpcor, knitr, rmarkdown
 Imports: RSpectra, corpcor
-License: GPL
+License: GPL (>=2)
 Encoding: UTF-8
 RoxygenNote: 6.1.1
-Suggests: knitr,
-    rmarkdown
+biocViews: PrincipalComponent, SingleCell, BiomedicalInformatics, Transcription, Software
+BugReports: https://github.com/ChongC1990/scRMD/issues
+URL: https://github.com/ChongC1990/scRMD
 VignetteBuilder: knitr
