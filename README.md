@@ -11,7 +11,7 @@ scRMD can be installed by simplely run:
 ``` r
 install.packages("devtools")         
 library(devtools)           
-install_github("ChongC1990/scRMD")
+install_github("ruibinxx/scRMD")
 ```
 
 ## Quick start
@@ -22,7 +22,7 @@ set.seed(2017)
 K=3; Kn=50; Ndiff=100; Nsame=10000; logMean=1.8; logSd=0.5; 
 ZeroRate = 0.5; sigmahetero = 0.1; sigmahomo = 0.2; drbase = 1; dr = 0.2;
 sData = sSimulator(K, Kn, Ndiff, Nsame, logMean, logSd, ZeroRate, drbase, dr, sigmahomo, sigmahetero, type = "cluster")
-cutoff = quantile(sDate$de[sDate$de>0], 0.05)
+cutoff = quantile(sData$de[sDate$de>0], 0.05)
 res.rmd <- rmd(sData$de, candidate = cutoff)
 pca.rmd <- prcomp(res.rmd$exprs)
 cl.rmd <- kmeans(pca.rmd$x[,1:2],K,nstart = 100)
