@@ -11,7 +11,7 @@ scRMD can be installed by simplely run:
 ``` r
 install.packages("devtools")         
 library(devtools)           
-install_github("ruibinxx/scRMD")
+install_github("XiDsLab/scRMD")
 ```
 
 ## Quick start
